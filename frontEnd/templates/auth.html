@@ -1,0 +1,182 @@
+<div layout="row">
+
+
+
+	<div layout="column" class="relative" layout-fill role="main">
+		<md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
+			<md-icon md-svg-icon="content:ic_add_24px" aria-label="Plus"></md-icon>
+		</md-button>
+		<md-toolbar class="animate-show md-tall md-whiteframe-z1" ng-show="!showSearch">
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+					<md-icon md-svg-icon="navigation:ic_menu_24px" aria-label="Menu"></md-icon>
+				</md-button>
+				<h3>
+					Trader App
+				</h3>
+				<span flex></span>
+				<md-button class="md-icon-button" aria-label="Search" ng-click="toggleSearch()">
+					<md-icon md-svg-icon="action:ic_search_24px" aria-label="Search"></md-icon>
+				</md-button>
+				<md-button class="md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+					<md-icon md-svg-icon="navigation:ic_more_vert_24px" aria-label="More"></md-icon>
+				</md-button>
+			</div>
+			<span flex></span>
+			<md-tabs md-stretch-tabs="always" md-selected="data.selectedIndex">
+				<md-tab id="tab1" aria-controls="tab1-content">
+					Sign Up
+				</md-tab>
+				<md-tab id="tab2" aria-controls="tab2-content">
+					Log In
+				</md-tab>
+			</md-tabs>
+		</md-toolbar>
+		<md-toolbar ng-show="showSearch" class="animate-show md-hue-1 md-whiteframe-z1">
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" ng-click="toggleSearch()" aria-label="Menu">
+					<md-icon md-svg-icon="navigation:ic_arrow_back_24px" aria-label="Back"></md-icon>
+				</md-button>
+				<h3 role="button" ng-click="toggleSearch()">
+					Back
+				</h3>
+				<span flex="5"></span>
+				<span ng-controller="DemoCtrl as ctrl" flex>
+            <md-autocomplete md-theme="input"
+              md-input-name="autocompleteField"
+              md-no-cache="ctrl.noCache"
+              md-selected-item="ctrl.selectedItem"
+              md-search-text="ctrl.searchText"
+              md-items="item in ctrl.querySearch(ctrl.searchText)"
+              md-item-text="item.display"
+              placeholder="Search">
+              <md-item-template>
+                <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+				</md-item-template>
+				<div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+					<div ng-message="required">You <b>must</b> have a favorite state.</div>
+					<div ng-message="minlength">Your entry is not long enough.</div>
+					<div ng-message="maxlength">Your entry is too long.</div>
+				</div>
+				</md-autocomplete>
+				</span>
+
+			</div>
+		</md-toolbar>
+		<md-content flex>
+			<ui-view layout="column" layout-fill layout-padding>
+				<div class="inset" hide-sm></div>
+				<ng-switch on="data.selectedIndex" class="tabpanel-container">
+					<div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0" md-swipe-left="next()" md-swipe-right="previous()"
+									layout="row" layout-align="center center">
+						<div flex-gt-sm="90" flex-gt-md="80">
+
+
+							<!-- Sign Up content -->
+							<md-content layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
+								<md-card flex="flex" flex-gt-sm="50" flex-gt-md="50">
+									<md-toolbar>
+										<div class="md-toolbar-tools">
+											<h2><span>Sign Up</span></h2>
+										</div>
+									</md-toolbar>
+									<md-card-content>
+										<!-- New account form -->
+										<form name="Form">
+											<md-input-container class="md-block">
+												<label>First Name</label>
+												<input type="text" name="First Name" ng-model="newUser.firstName" placeholder="First Name" required="" />
+												<div ng-messages="Form.email.$error" role="alert" multiple="">
+													<div ng-message="required" class="my-message">Please enter your first name.</div>
+												</div>
+											</md-input-container>
+											<md-input-container class="md-block">
+												<label>Last Name</label>
+												<input type="text" name="Last Name" ng-model="newUser.lastName" placeholder="Last Name" required="" />
+												<div ng-messages="Form.email.$error" role="alert" multiple="">
+													<div ng-message="required" class="my-message">Please enter your last name.</div>
+												</div>
+											</md-input-container>
+											<md-input-container class="md-block">
+												<label>Username</label>
+												<input type="text" name="Username" ng-model="newUser.username" placeholder="Username" required="" />
+												<div ng-messages="Form.email.$error" role="alert" multiple="">
+													<div ng-message="required" class="my-message">Please enter a username.</div>
+												</div>
+											</md-input-container>
+											<md-input-container class="md-block">
+												<label>Password</label>
+												<input type="password" name="Password" ng-model="newUser.password" placeholder="Password" required="" />
+												<div ng-messages="Form.email.$error" role="alert" multiple="">
+													<div ng-message="required" class="my-message">Please enter a password.</div>
+												</div>
+											</md-input-container>
+											<md-input-container class="md-block">
+												<label>Profile Pic Url</label>
+												<input type="text" name="Last Name" ng-model="newUser.imgUrl" placeholder="Profile Pic Url" />
+
+											</md-input-container>
+
+
+											<md-button ng-disabled="!Form.$valid" ng-click="signup()" class="md-raised md-primary"> Submit </md-button>
+											<md-button class="md-raised md-primary" href='#/'>temp secret button</md-button>
+										</form>
+									</md-card-content>
+								</md-card>
+							</md-content>
+
+
+
+
+
+						</div>
+					</div>
+
+
+
+					<div role="tabpanel" id="tab2-content" aria-labelledby="tab2" ng-switch-when="1" md-swipe-left="next()" md-swipe-right="previous()"
+									layout="row" layout-align="center center">
+						<div flex-gt-sm="90" flex-gt-md="80">
+							<!-- Log In content -->
+							<md-content layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
+								<md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+									<md-toolbar>
+										<div class="md-toolbar-tools">
+											<h2><span>Login</span></h2>
+										</div>
+									</md-toolbar>
+									<md-card-content>
+										<!-- Log in form -->
+										<form name="Form">
+											<md-input-container class="md-block">
+												<label>Login</label>
+												<input type="text" name="username" ng-model="loginUser.username" placeholder="login" required="" />
+												<div ng-messages="Form.email.$error" role="alert" multiple="">
+													<div ng-message="required" class="my-message">Please enter your username.</div>
+												</div>
+											</md-input-container>
+											<md-input-container class="md-block">
+												<label>Password</label>
+												<input type="password" name="password" ng-model="loginUser.password" placeholder="password" required="" md-maxlength="16"
+												/>
+												<div ng-messages="Form.password.$error" role="alert" multiple="">
+													<div ng-message="required" class="my-message">Please enter your password.</div>
+													<div> </div>
+												</div>
+											</md-input-container>
+											<md-button ng-disabled="!Form.$valid" ng-click="login()" class="md-raised md-primary"> Login </md-button>
+											<md-button class="md-raised md-primary" href='#/'>temp secret button</md-button>
+										</form>
+									</md-card-content>
+								</md-card>
+							</md-content>
+						</div>
+
+					</div>
+
+				</ng-switch>
+
+			</ui-view>
+		</md-content>
+	</div>
+</div>
